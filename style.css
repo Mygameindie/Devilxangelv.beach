@@ -1,0 +1,172 @@
+/* General body styling */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 0.005vh;
+    margin: 0;
+    background-image: url('background.jpg'); /* Background image */
+    background-size: cover; /* Ensures the image covers the entire screen */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling */
+    width: 100vw; /* Full viewport width */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Main menu and game container styling */
+.game-container, .main-menu {
+    text-align: center;
+    width: 100%;
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background:white
+}
+
+.main-menu img {
+    width: 500px;
+    height: auto;
+}
+
+.main-menu button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #6200ea;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+}
+
+.main-menu button:hover {
+    background-color: #3700b3;
+}
+
+.game-container {
+    display: none;
+}
+
+.base-container {
+    position: relative;
+    width: 500px;
+    height: 400px;
+    margin: 20px auto 0 auto;
+}
+
+/* Base image and layering */
+.base-container img {
+    width: 500px;
+    height: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+/* Controls section */
+.controls {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column; /* Stack each category on a new line */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+/* Category styling template */
+.category {
+    margin: 100px;
+}
+
+/* Category group styling */
+.category-group {
+    display: flex;
+    flex-direction: column; /* Arrange items in a column to create a line break */
+    align-items: center;
+    margin-bottom: 20px; /* Space between each group */
+}
+
+.category-group h3 {
+    font-size: 18px;
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Z-index layering for each category */
+.Base-image { z-index: 1; } /* Base */
+/* New Layers for Clothing Items */
+.socks{ z-index: 2;}
+.bottom-bikini { z-index: 3; } /* Layer for bottom bikini */
+.top-bikini { z-index: 4; } /* Layer for top bikini */
+.one-piece { z-index: 5; } /* Layer for one-piece swimsuit */
+.short { z-index: 6; } /* Layer for shorts */
+.skirt { z-index: 7; } /* Layer for skirts */
+.hat { z-index: 8; } /* Layer for hats */
+.jacket { z-index: 9; } /* Layer for jackets */
+
+
+/* Controls button styling */
+.controls img {
+    cursor: pointer;
+    width: 50px;
+    height: auto;
+    margin: 5px;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.controls img:hover {
+    border-color: #6200ea;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+    .base-container {
+        display: flex;
+        flex-wrap: nowrap; /* Ensure items are side-by-side */
+        justify-content: space-between;
+        width: 100%; /* Adjust width to take up full screen */
+        height: auto;
+    }
+
+    .base-container img {
+        position: absolute; /* Ensures Z-index applies */
+        flex: 1 1 auto; /* Make images share available space */
+        width: 30%; /* Display three images side-by-side */
+        height: auto;
+    }
+
+    .controls img {
+        width: 30px; /* Resize control buttons for smaller screens */
+        height: auto;
+    }
+
+    .main-menu img {
+        width: 100%; /* Adjust main menu images */
+        height: auto;
+    }
+
+    .main-menu button {
+        width: 100%; /* Scale buttons for smaller screens */
+        font-size: 16px; /* Reduce font size */
+    }
+
+    .controls {
+        flex-direction: row; /* Display controls in a row */
+        flex-wrap: wrap;
+    }
+
+    .category-group {
+        margin-bottom: auto; /* Reduce space between categories */
+    }
+}

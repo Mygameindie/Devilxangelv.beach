@@ -1,0 +1,62 @@
+[
+    {
+        "id": "Short2_1",
+        "src": "Short2_1.png",
+        "alt": "Short 2 Item 1",
+        "visibility": "visible"
+    },
+    {
+        "id": "Short2_2",
+        "src": "Short2_2.png",
+        "alt": "Short 2 Item 2",
+        "visibility": "hidden"
+    },
+    {
+        "id": "Short2_3",
+        "src": "Short2_3.png",
+        "alt": "Short 2 Item 3",
+        "visibility": "hidden"
+    },
+    {
+        "id": "Short2_4",
+        "src": "Short2_4.png",
+        "alt": "Short 2 Item 4",
+        "visibility": "hidden"
+    },
+    {
+        "id": "Short2_5",
+        "src": "Short2_5.png",
+        "alt": "Short 2 Item 5",
+        "visibility": "hidden"
+    },
+    {
+        "id": "Short2_6",
+        "src": "Short2_6.png",
+        "alt": "Short 2 Item 6",
+        "visibility": "hidden"
+    },
+    {
+        "id": "Short2_7",
+        "src": "Short2_7.png",
+        "alt": "Short 2 Item 7",
+        "visibility": "hidden"
+    },
+    {
+        "id": "Short2_8",
+        "src": "Short2_8.png",
+        "alt": "Short 2 Item 8",
+        "visibility": "hidden"
+    },
+    {
+        "id": "Short2_9",
+        "src": "Short2_9.png",
+        "alt": "Short 2 Item 9",
+        "visibility": "hidden"
+    },
+    {
+        "id": "Short2_10",
+        "src": "Short2_10.png",
+        "alt": "Short 2 Item 10",
+        "visibility": "hidden"
+    }
+]
