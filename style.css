@@ -74,13 +74,13 @@ body {
 
 /* Controls section */
 .controls {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column; /* Stack each category on a new line */
+    margin-top: 20px;
+    display: grid; /* Use grid layout for better alignment */
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Flexible button layout */
+    gap: 10px; /* Add spacing between buttons */
     justify-content: center;
     align-items: center;
-    width: 100%;
-    flex-wrap: wrap;
+    width: 90%; /* Ensure controls fit within screen width */
 }
 
 /* Category styling template */
@@ -131,14 +131,24 @@ body {
 /* Responsive styling for smaller screens */
 @media (max-width: 600px) {
     .base-container {
-        width: 90%; /* Adjust width to take up most of the screen */
+        width: 95%; /* Adjust width to take up most of the screen */
         height: auto; /* Adjust height dynamically */
         margin: 0 auto; /* Center the container */
     }
 
     .base-container img {
-        width: 100%; /* Ensure images within the container scale properly */
+        width: 100%; /* Ensure images resize proportionally */
         height: auto;
+    }
+
+    .controls {
+        margin-top: 20px;
+        display: grid; /* Use grid for better alignment on small screens */
+        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr)); /* Smaller button layout */
+        gap: 5px; /* Smaller spacing for compact layout */
+        justify-content: center;
+        align-items: center;
+        width: 100%; /* Ensure controls fit screen width */
     }
 
     .controls img {
@@ -156,12 +166,7 @@ body {
         font-size: 16px; /* Reduce font size */
     }
 
-    .controls {
-        flex-direction: row; /* Display controls in a row */
-        flex-wrap: wrap;
-    }
-
     .category-group {
-        margin-bottom: auto; /* Reduce space between categories */
+        margin-bottom: 10px; /* Reduce space between categories */
     }
 }
