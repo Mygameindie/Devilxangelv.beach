@@ -135,13 +135,13 @@ body {
         display: flex;
         flex-wrap: nowrap; /* Ensure items are side-by-side */
         justify-content: space-between;
-        width: 100%; /* Adjust width to take up full screen */
+        width: auto; /* Adjust width to take up full screen */
         height: auto;
     }
 
     .base-container img {
         position: absolute; /* Ensures Z-index applies */
-        flex: auto; /* Make images share available space */
+        flex: 1 1 auto; /* Make images share available space */
         width: 30%; /* Display three images side-by-side */
         height: auto;
     }
