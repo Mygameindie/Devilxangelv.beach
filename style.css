@@ -129,42 +129,5 @@ body {
     border-color: #6200ea;
 }
 
-/* Responsive styling for smaller screens */
-@media (max-width: 600px) {
-    .base-container {
-        display: flex;
-        flex-wrap: nowrap; /* Ensure items are side-by-side */
-        justify-content: space-between;
-        width: 100%; /* Adjust width to take up full screen */
-        height: auto;
-    }
 
-  .base-container img {
-    width: 100%; /* Adjust for smaller screens */
-}
-    }
-
-    .controls img {
-        width: 5%; /* Resize control buttons for smaller screens */
-        height: auto;
-    }
-
-    .main-menu img {
-        width: 50%; /* Adjust main menu images */
-        height: 80%;
-    }
-
-    .main-menu button {
-        width: 80%; /* Scale buttons for smaller screens */
-        font-size: 16px; /* Reduce font size */
-    }
-
-    .controls {
-        flex-direction: row; /* Display controls in a row */
-        flex-wrap: wrap;
-    }
-
-    .category-group {
-        margin-bottom: auto; /* Reduce space between categories */
-    }
 }
