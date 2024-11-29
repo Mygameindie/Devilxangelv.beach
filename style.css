@@ -129,5 +129,44 @@ body {
     border-color: #6200ea;
 }
 
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+    .base-container {
+        display: flex;
+        flex-wrap: nowrap; /* Ensure items are side-by-side */
+        justify-content: space-between;
+        width: 100%; /* Adjust width to take up full screen */
+        height: auto;
+    }
 
+    .base-container img {
+        position: absolute; /* Ensures Z-index applies */
+        flex: auto; /* Make images share available space */
+        width: 30%; /* Display three images side-by-side */
+        height: auto;
+    }
+
+    .controls img {
+        width: 30px; /* Resize control buttons for smaller screens */
+        height: auto;
+    }
+
+    .main-menu img {
+        width: 100%; /* Adjust main menu images */
+        height: auto;
+    }
+
+    .main-menu button {
+        width: 100%; /* Scale buttons for smaller screens */
+        font-size: 16px; /* Reduce font size */
+    }
+
+    .controls {
+        flex-direction: row; /* Display controls in a row */
+        flex-wrap: wrap;
+    }
+
+    .category-group {
+        margin-bottom: auto; /* Reduce space between categories */
+    }
 }
