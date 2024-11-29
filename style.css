@@ -26,7 +26,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: white;
+    background:white
 }
 
 .main-menu img {
@@ -74,13 +74,13 @@ body {
 
 /* Controls section */
 .controls {
-    margin-top: 20px;
-    display: grid; /* Use grid layout for better alignment */
-    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Flexible button layout */
-    gap: 10px; /* Add spacing between buttons */
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column; /* Stack each category on a new line */
     justify-content: center;
     align-items: center;
-    width: 90%; /* Ensure controls fit within screen width */
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 /* Category styling template */
@@ -105,7 +105,7 @@ body {
 /* Z-index layering for each category */
 .Base-image { z-index: 1; } /* Base */
 /* New Layers for Clothing Items */
-.socks { z-index: 2; }
+.socks{ z-index: 2;}
 .bottom-bikini { z-index: 3; } /* Layer for bottom bikini */
 .top-bikini { z-index: 4; } /* Layer for top bikini */
 .one-piece { z-index: 5; } /* Layer for one-piece swimsuit */
@@ -113,6 +113,7 @@ body {
 .skirt { z-index: 7; } /* Layer for skirts */
 .hat { z-index: 8; } /* Layer for hats */
 .jacket { z-index: 9; } /* Layer for jackets */
+
 
 /* Controls button styling */
 .controls img {
@@ -131,42 +132,39 @@ body {
 /* Responsive styling for smaller screens */
 @media (max-width: 600px) {
     .base-container {
-        width: 95%; /* Adjust width to take up most of the screen */
-        height: auto; /* Adjust height dynamically */
-        margin: 0 auto; /* Center the container */
-    }
-
-    .base-container img {
-        width: 100%; /* Ensure images resize proportionally */
+        display: flex;
+        flex-wrap: nowrap; /* Ensure items are side-by-side */
+        justify-content: space-between;
+        width: 100%; /* Adjust width to take up full screen */
         height: auto;
     }
 
-    .controls {
-        margin-top: 20px;
-        display: grid; /* Use grid for better alignment on small screens */
-        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr)); /* Smaller button layout */
-        gap: 5px; /* Smaller spacing for compact layout */
-        justify-content: center;
-        align-items: center;
-        width: 100%; /* Ensure controls fit screen width */
+  .base-container img {
+    width: 100%; /* Adjust for smaller screens */
+}
     }
 
     .controls img {
-        width: 30px; /* Resize control buttons for smaller screens */
+        width: 5%; /* Resize control buttons for smaller screens */
         height: auto;
     }
 
     .main-menu img {
-        width: 100%; /* Adjust main menu images */
-        height: auto;
+        width: 50%; /* Adjust main menu images */
+        height: 80%;
     }
 
     .main-menu button {
-        width: 100%; /* Scale buttons for smaller screens */
+        width: 80%; /* Scale buttons for smaller screens */
         font-size: 16px; /* Reduce font size */
     }
 
+    .controls {
+        flex-direction: row; /* Display controls in a row */
+        flex-wrap: wrap;
+    }
+
     .category-group {
-        margin-bottom: 10px; /* Reduce space between categories */
+        margin-bottom: auto; /* Reduce space between categories */
     }
 }
