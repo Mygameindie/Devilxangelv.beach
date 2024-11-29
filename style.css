@@ -26,7 +26,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background:white
+    background: white;
 }
 
 .main-menu img {
@@ -105,7 +105,7 @@ body {
 /* Z-index layering for each category */
 .Base-image { z-index: 1; } /* Base */
 /* New Layers for Clothing Items */
-.socks{ z-index: 2;}
+.socks { z-index: 2; }
 .bottom-bikini { z-index: 3; } /* Layer for bottom bikini */
 .top-bikini { z-index: 4; } /* Layer for top bikini */
 .one-piece { z-index: 5; } /* Layer for one-piece swimsuit */
@@ -113,7 +113,6 @@ body {
 .skirt { z-index: 7; } /* Layer for skirts */
 .hat { z-index: 8; } /* Layer for hats */
 .jacket { z-index: 9; } /* Layer for jackets */
-
 
 /* Controls button styling */
 .controls img {
@@ -132,17 +131,13 @@ body {
 /* Responsive styling for smaller screens */
 @media (max-width: 600px) {
     .base-container {
-        display: flex;
-        flex-wrap: nowrap; /* Ensure items are side-by-side */
-        justify-content: space-between;
-        width: 100%; /* Adjust width to take up full screen */
-        height: auto;
+        width: 90%; /* Adjust width to take up most of the screen */
+        height: auto; /* Adjust height dynamically */
+        margin: 0 auto; /* Center the container */
     }
 
     .base-container img {
-        position: absolute; /* Ensures Z-index applies */
-        flex: 1 1 auto; /* Make images share available space */
-        width: 30%; /* Display three images side-by-side */
+        width: 100%; /* Ensure images within the container scale properly */
         height: auto;
     }
 
