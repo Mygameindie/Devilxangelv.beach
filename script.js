@@ -1,80 +1,61 @@
-// Array of JSON file paths in the specified order
+// Array of JSON file paths
 const jsonFiles = [
-   'Socks2.json', 'BottomBikini1.json', 'BottomBikini2.json',
-    'TopBikini1.json',
-    'OnePiece1.json',
-    'Short1.json', 'Short2.json',
-    'Skirt1.json',
-	'Dress1.json',
-    'Hat1.json', 'Hat2.json',
-    'Jacket1.json', 'Jacket2.json'
+    // Bottom underwear
+    'bottomunderwear1.json', 'bottomunderwear2.json',
+
+    // Top underwear
+    'topunderwear1.json', 'topunderwear2.json',
+
+    // Boxers
+    'boxers1.json', 'boxers2.json',
+
+    // Sweatshirts
+    'sweatshirt1.json', 'sweatshirt2.json',
+
+    // Shoes
+    'shoes1.json', 'shoes2.json',
+
+    // Pants
+    'pants1.json', 'pants2.json',
+	
+	// Skirts
+    'skirt1.json', 'skirt2.json',
+
+    // Tops
+    'top1.json', 'top2.json',
+
+    // Dresses
+    'dress1.json', 'dress2.json',
+
+    // Jackets
+    'jacket1.json', 'jacket2.json',
+
+    // Accessories
+    'accessories1.json', 'accessories2.json',
+
+    // Hats
+    'hat1.json', 'hat2.json'
 ];
 
 // Helper function to set z-index for categories
 function getZIndex(categoryName) {
     const zIndexMap = {
-        bottombikini1: 1, // Bottom bikini layer
-        bottombikini2: 1, // Same as bottom bikini
-        topbikini1: 2,    // Top bikini layer
-        onepiece1: 3,     // One-piece swimsuit layer
-        short1: 4,        // Shorts layer
-        short2: 4,        // Same layer for different shorts
-        skirt1: 5,        // Skirt layer (higher than shorts)
-        socks2: 6,        // Socks layer
-		dress1: 7,
-        jacket1: 8,       // Jacket layer
-        jacket2: 8,       // Same as other jackets
-        hat1: 9,          // Hat layer (always on top)
-        hat2: 9           // Same as other hats
+        bottomunderwear: 2, 		topunderwear: 3, 		boxer: 4, 		sweatshirt: 5, 		shoe: 6,         pants: 8,         skirt: 9,         top: 10,         dress: 11,         jacket: 12,         accessories: 13,         hat: 14,
     };
 
-    if (!zIndexMap[categoryName]) {
-        console.warn(`Z-index for category "${categoryName}" is not defined. Defaulting to 0.`);
-    }
+    // Return a default value if not found
     return zIndexMap[categoryName] || 0;
 }
 
-// Load each JSON file and create buttons and items
-async function loadItems() {
-    const baseContainer = document.querySelector('.base-container');
-    const controlsContainer = document.querySelector('.controls');
-
-    for (const file of jsonFiles) {
-        const data = await loadItemFile(file);
-        const categoryName = file.replace('.json', '').toLowerCase();
-
-        const categoryContainer = document.createElement('div');
-        categoryContainer.classList.add('category');
-
-        const categoryHeading = document.createElement('h3');
-        categoryHeading.textContent = categoryName;
-        categoryContainer.appendChild(categoryHeading);
-
-        data.forEach(item => {
-            const itemId = `${item.id}.png`;
-
-            // Add item image
-            const img = document.createElement('img');
-            img.id = itemId;
-            img.src = item.src;
-            img.alt = item.alt;
-            img.classList.add(categoryName);
-            img.style.visibility = item.visibility === 'visible' ? 'visible' : 'hidden';
-            img.style.position = 'absolute';
-            img.style.zIndex = getZIndex(categoryName);
-            baseContainer.appendChild(img);
-
-            // Add button for the item
-            const button = document.createElement('img');
-            const buttonFile = item.src.replace('.png', 'b.png'); // Add 'b' to filename
-            button.src = buttonFile;
-            button.alt = `${item.alt} Button`;
-            button.classList.add('item-button');
-            button.onclick = () => toggleVisibility(itemId, categoryName);
-            categoryContainer.appendChild(button);
-        });
-
-        controlsContainer.appendChild(categoryContainer);
+// Load each JSON file
+async function loadItemFile(file) {
+    try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error(`Error loading file: ${file}`);
+        return await response.json();
+    } catch (error) {
+        console.error(`Failed to load ${file}:`, error);
+        return [];
     }
 }
 
@@ -88,7 +69,7 @@ async function loadItemsInBatches(batchSize = 5) {
 
         await Promise.all(batch.map(async file => {
             const data = await loadItemFile(file);
-            const categoryName = file.replace('.json', '').toLowerCase();
+            const categoryName = file.replace('.json', '');
             const categoryContainer = document.createElement('div');
             categoryContainer.classList.add('category');
 
@@ -106,8 +87,8 @@ async function loadItemsInBatches(batchSize = 5) {
                 img.classList.add(categoryName);
                 img.setAttribute('data-file', file);
                 img.style.visibility = item.visibility === "visible" ? "visible" : "hidden";
-                img.style.position = 'absolute';
-                img.style.zIndex = getZIndex(categoryName);
+                img.style.position = 'absolute'; // Ensure z-index applies
+                img.style.zIndex = getZIndex(categoryName); // Apply z-index dynamically
                 baseContainer.appendChild(img);
 
                 const button = document.createElement('img');
@@ -126,7 +107,7 @@ async function loadItemsInBatches(batchSize = 5) {
     }
 }
 
-// Toggle visibility of item images, ensuring mutual exclusivity between bikini and one-piece
+// Toggle visibility of item images, ensuring mutual exclusivity
 function toggleVisibility(itemId, categoryName) {
     const categoryItems = document.querySelectorAll(`.${categoryName}`);
     categoryItems.forEach(item => {
@@ -138,21 +119,21 @@ function toggleVisibility(itemId, categoryName) {
     const selectedItem = document.getElementById(itemId);
     selectedItem.style.visibility = selectedItem.style.visibility === 'visible' ? 'hidden' : 'visible';
 
-   if (selectedItem.style.visibility === 'visible') {
-    if (['topbikini1', 'bottombikini1'].includes(categoryName)) {
-        // Hide one-piece items when bikini items are selected
-        hideSpecificCategories(['onepiece1']);
-    } else if (categoryName === 'onepiece1') {
-        // Hide bikini items when a one-piece is selected
-        hideSpecificCategories(['topbikini1', 'bottombikini1']);
-    } else if (categoryName === 'dress1') {
-        // Hide short and skirt when dress is selected
-        hideSpecificCategories(['short1', 'skirt1']);
-    } else if (['short1', 'skirt1'].includes(categoryName)) {
-        // Hide dress when short or skirt is selected
-        hideSpecificCategories(['dress1']);
+    if (selectedItem.style.visibility === 'visible') {
+        if (categoryName === 'dress1') {
+            // Hide items related to number 1 when wearing dress1
+            hideSpecificCategories(['top1', 'pants1', 'skirt1', 'sweatshirt1']);
+        } else if (categoryName === 'dress2') {
+            // Hide items related to number 2 when wearing dress2
+            hideSpecificCategories(['top2', 'pants2', 'skirt2', 'sweatshirt2']);
+        } else if (categoryName.startsWith('top1') || categoryName.startsWith('pants1') || categoryName.startsWith('skirt1') || categoryName.startsWith('sweatshirt1')) {
+            // Hide dress1 if any item from group 1 is selected
+            hideSpecificCategories(['dress1']);
+        } else if (categoryName.startsWith('top2') || categoryName.startsWith('pants2') || categoryName.startsWith('skirt2') || categoryName.startsWith('sweatshirt2')) {
+            // Hide dress2 if any item from group 2 is selected
+            hideSpecificCategories(['dress2']);
+        }
     }
-}
 }
 
 // Helper function to hide items for specific categories
@@ -166,6 +147,7 @@ function hideSpecificCategories(categories) {
 }
 
 // Adjust canvas layout dynamically for responsive design on smaller screens
+// Adjust canvas layout dynamically for responsive design
 function adjustCanvasLayout() {
     const baseContainer = document.querySelector('.base-container');
     const controlsContainer = document.querySelector('.controls');
@@ -174,16 +156,25 @@ function adjustCanvasLayout() {
 
     if (screenWidth <= 600) {
         baseContainer.style.display = 'flex';
-        baseContainer.style.flexWrap = 'nowrap';
-        baseContainer.style.justifyContent = 'space-between';
+        baseContainer.style.flexDirection = 'column';
+        baseContainer.style.width = '90%';
+        baseContainer.style.height = 'auto';
+        controlsContainer.style.flexWrap = 'wrap';
     } else {
         baseContainer.style.display = 'block';
         baseContainer.style.width = '500px';
         baseContainer.style.height = '400px';
-        controlsContainer.style.marginTop = 'auto';
+        controlsContainer.style.flexWrap = 'nowrap';
     }
 }
 
+// Apply layout adjustment on load and resize
+window.onload = () => {
+    loadItemsInBatches();
+    adjustCanvasLayout();
+};
+
+window.addEventListener('resize', adjustCanvasLayout);
 // Apply layout adjustment on load and resize
 window.onload = () => {
     loadItemsInBatches();
@@ -196,18 +187,4 @@ window.addEventListener('resize', adjustCanvasLayout);
 function enterGame() {
     document.querySelector('.main-menu').style.display = 'none';
     document.querySelector('.game-container').style.display = 'block';
-}
-
-// Load items from a JSON file
-async function loadItemFile(file) {
-    try {
-        const response = await fetch(file);
-        if (!response.ok) {
-            throw new Error(`Failed to load ${file}: ${response.statusText}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error(`Error loading file ${file}:`, error);
-        return [];
-    }
 }
