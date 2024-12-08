@@ -1,49 +1,33 @@
-// Array of JSON file paths
+// Array of JSON file paths in the specified order
 const jsonFiles = [
-    // Bottom underwear
-    'bottomunderwear1.json', 'bottomunderwear2.json',
-
-    // Top underwear
-    'topunderwear1.json', 'topunderwear2.json',
-
-    // Boxers
-    'boxers1.json', 'boxers2.json',
-
-    // Sweatshirts
-    'sweatshirt1.json', 'sweatshirt2.json',
-
-    // Shoes
-    'shoes1.json', 'shoes2.json',
-
-    // Pants
-    'pants1.json', 'pants2.json',
-	
-	// Skirts
-    'skirt1.json', 'skirt2.json',
-
-    // Tops
-    'top1.json', 'top2.json',
-
-    // Dresses
-    'dress1.json', 'dress2.json',
-
-    // Jackets
-    'jacket1.json', 'jacket2.json',
-
-    // Accessories
-    'accessories1.json', 'accessories2.json',
-
-    // Hats
-    'hat1.json', 'hat2.json'
+    'Socks2.json', 'BottomBikini1.json', 'BottomBikini2.json',
+    'TopBikini1.json', 'OnePiece1.json', 'Short1.json', 'Short2.json',
+    'Skirt1.json', 'Dress1.json', 'Hat1.json', 'Hat2.json',
+    'Jacket1.json', 'Jacket2.json'
 ];
 
 // Helper function to set z-index for categories
 function getZIndex(categoryName) {
     const zIndexMap = {
-        bottomunderwear: 2, 		topunderwear: 3, 		boxer: 4, 		sweatshirt: 5, 		shoe: 6,         pants: 8,         skirt: 9,         top: 10,         dress: 11,         jacket: 12,         accessories: 13,         hat: 14,
+        socks2: 6,
+        bottombikini1: 1,
+        bottombikini2: 1,
+        topbikini1: 2,
+        onepiece1: 3,
+        short1: 4,
+        short2: 4,
+        skirt1: 5,
+        dress1: 7,
+        jacket1: 8,
+        jacket2: 8,
+        hat1: 9,
+        hat2: 9
     };
 
-    // Return a default value if not found
+    if (!zIndexMap[categoryName] && !zIndexMap.hasWarned) {
+        console.warn(`Z-index for category "${categoryName}" is not defined. Defaulting to 0.`);
+        zIndexMap.hasWarned = true; // Prevent repeated warnings
+    }
     return zIndexMap[categoryName] || 0;
 }
 
@@ -69,7 +53,7 @@ async function loadItemsInBatches(batchSize = 5) {
 
         await Promise.all(batch.map(async file => {
             const data = await loadItemFile(file);
-            const categoryName = file.replace('.json', '');
+            const categoryName = file.replace('.json', '').toLowerCase();
             const categoryContainer = document.createElement('div');
             categoryContainer.classList.add('category');
 
@@ -87,8 +71,8 @@ async function loadItemsInBatches(batchSize = 5) {
                 img.classList.add(categoryName);
                 img.setAttribute('data-file', file);
                 img.style.visibility = item.visibility === "visible" ? "visible" : "hidden";
-                img.style.position = 'absolute'; // Ensure z-index applies
-                img.style.zIndex = getZIndex(categoryName); // Apply z-index dynamically
+                img.style.position = 'absolute';
+                img.style.zIndex = getZIndex(categoryName);
                 baseContainer.appendChild(img);
 
                 const button = document.createElement('img');
@@ -120,18 +104,14 @@ function toggleVisibility(itemId, categoryName) {
     selectedItem.style.visibility = selectedItem.style.visibility === 'visible' ? 'hidden' : 'visible';
 
     if (selectedItem.style.visibility === 'visible') {
-        if (categoryName === 'dress1') {
-            // Hide items related to number 1 when wearing dress1
-            hideSpecificCategories(['top1', 'pants1', 'skirt1', 'sweatshirt1']);
-        } else if (categoryName === 'dress2') {
-            // Hide items related to number 2 when wearing dress2
-            hideSpecificCategories(['top2', 'pants2', 'skirt2', 'sweatshirt2']);
-        } else if (categoryName.startsWith('top1') || categoryName.startsWith('pants1') || categoryName.startsWith('skirt1') || categoryName.startsWith('sweatshirt1')) {
-            // Hide dress1 if any item from group 1 is selected
+        if (['topbikini1', 'bottombikini1'].includes(categoryName)) {
+            hideSpecificCategories(['onepiece1']);
+        } else if (categoryName === 'onepiece1') {
+            hideSpecificCategories(['topbikini1', 'bottombikini1']);
+        } else if (categoryName === 'dress1') {
+            hideSpecificCategories(['short1', 'skirt1']);
+        } else if (['short1', 'skirt1'].includes(categoryName)) {
             hideSpecificCategories(['dress1']);
-        } else if (categoryName.startsWith('top2') || categoryName.startsWith('pants2') || categoryName.startsWith('skirt2') || categoryName.startsWith('sweatshirt2')) {
-            // Hide dress2 if any item from group 2 is selected
-            hideSpecificCategories(['dress2']);
         }
     }
 }
@@ -146,7 +126,6 @@ function hideSpecificCategories(categories) {
     });
 }
 
-// Adjust canvas layout dynamically for responsive design on smaller screens
 // Adjust canvas layout dynamically for responsive design
 function adjustCanvasLayout() {
     const baseContainer = document.querySelector('.base-container');
@@ -168,13 +147,6 @@ function adjustCanvasLayout() {
     }
 }
 
-// Apply layout adjustment on load and resize
-window.onload = () => {
-    loadItemsInBatches();
-    adjustCanvasLayout();
-};
-
-window.addEventListener('resize', adjustCanvasLayout);
 // Apply layout adjustment on load and resize
 window.onload = () => {
     loadItemsInBatches();
