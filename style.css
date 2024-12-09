@@ -130,43 +130,46 @@ body {
 }
 
 /* Responsive styling for smaller screens */
+/* Responsive styling for smaller screens */
 @media (max-width: 600px) {
+    body {
+        background-size: contain; /* Adjust background image to fit screen */
+	    background-image: url('background.jpg');
+        background-position: top; /* Align background to the top */
+    }
+
     .base-container {
+        width: 90%; /* Use 90% of the screen width */
+        height: auto; /* Adjust height proportionally */
         display: flex;
-        flex-wrap: nowrap; /* Ensure items are side-by-side */
-        justify-content: space-between;
-        width: auto; /* Adjust width to take up full screen */
-        height: auto;
+        flex-direction: column; /* Stack images */
+        align-items: center; /* Center align images */
     }
 
     .base-container img {
-        position: absolute; /* Ensures Z-index applies */
-        flex: 1 1 auto; /* Make images share available space */
-        width: 30%; /* Display three images side-by-side */
-        height: auto;
+        width: 100%; /* Adjust image to fit container */
+        height: auto; /* Maintain aspect ratio */
+        position: relative; /* Ensure proper alignment */
+    }
+
+    .controls {
+        flex-direction: row; /* Align controls in a row */
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: center; /* Center controls */
     }
 
     .controls img {
-        width: 30px; /* Resize control buttons for smaller screens */
+        width: 40px; /* Resize control buttons */
         height: auto;
     }
 
     .main-menu img {
-        width: 100%; /* Adjust main menu images */
+        width: 80%; /* Adjust menu images for smaller screens */
         height: auto;
     }
 
     .main-menu button {
-        width: 100%; /* Scale buttons for smaller screens */
+        width: 90%; /* Adjust button width */
         font-size: 16px; /* Reduce font size */
-    }
-
-    .controls {
-        flex-direction: row; /* Display controls in a row */
-        flex-wrap: wrap;
-    }
-
-    .category-group {
-        margin-bottom: auto; /* Reduce space between categories */
     }
 }
